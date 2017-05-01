@@ -3,7 +3,9 @@ package com.zs.mvcapp.domain;
 public class Customer {
 	private Integer id;
 	private String name;
-	private String password;
+	private String address;
+	private String phone;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -16,23 +18,33 @@ public class Customer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPassword() {
-		return password;
+	public String getAddress() {
+		return address;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public Customer(Integer id, String name, String password) {
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	public Customer(Integer id, String name, String address, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.password = password;
+		this.address = address;
+		this.phone = phone;
 	}
+	
 	public Customer(){
 		
 	}
+	
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", password=" + password + "]";
+		return "Customer [id=" + id + ", name=" + name + ", address=" + address + ",phone="+ phone + "]";
 	}
 }
