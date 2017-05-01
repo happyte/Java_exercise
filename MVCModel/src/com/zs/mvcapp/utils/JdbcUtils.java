@@ -1,25 +1,33 @@
 package com.zs.mvcapp.utils;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
-/**
- * JDBC操作的工具类
- * @author zhangshu
- *
- */
+import javax.sql.DataSource;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 public class JdbcUtils {
-	/**
-	 * 释放连接数据库的connection
-	 * @param connection
-	 */
-	public void releaseConnection(Connection connection){
-		
+
+	public static void releaseConnection(Connection connection){
+		try {
+			if(connection != null){
+				connection.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	/**
-	 * 获取连接数据库的connection
-	 * @return
-	 */
-	public static Connection getConnection(){
-		return null;
+	
+	private static DataSource dataSource = null;
+	
+	static{
+		dataSource = new ComboPooledDataSource("mvcapp");
 	}
+	
+	public static Connection getConnection() throws SQLException{
+		return dataSource.getConnection();
+	}
+
 }
+
