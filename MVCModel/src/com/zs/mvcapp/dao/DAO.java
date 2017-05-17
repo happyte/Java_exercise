@@ -22,7 +22,7 @@ import java.sql.Connection;
 public class DAO<T> {
 	private QueryRunner queryRunner = new QueryRunner();
 	
-	private Class<T> clazz;  //不明白这个代表的具体含义?
+	private Class<T> clazz;  //不明白这个代表的具体含义? 与反射相关
 	
 	public DAO() {
 		Type superClass = getClass().getGenericSuperclass();
