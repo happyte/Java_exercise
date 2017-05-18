@@ -2,6 +2,7 @@ package com.zs.mvcapp.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.management.Query;
 import javax.servlet.ServletException;
@@ -10,10 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zs.mvcapp.dao.CustomerDAO;
+import com.zs.mvcapp.dao.impl.CustomerDaoJdbcImpl;
+import com.zs.mvcapp.domain.Customer;
+
 
 @WebServlet("*.do")
 public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static CustomerDAO customerDao = new CustomerDaoJdbcImpl();  //实例化接口类对象
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -46,8 +52,16 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 
-	private void query(HttpServletRequest request, HttpServletResponse response) {
+	private void query(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		System.out.println("query");
+		//1.发送请求来到query方法，获取所有Customer对象
+		List<Customer> customers = customerDao.getAll();
+		//2.request设置属性值
+		request.setAttribute("customers", customers);
+		//3.重定向到index.jsp
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		System.out.println(request);
 	}
 
 
