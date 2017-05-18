@@ -5,9 +5,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<script type="text/javascript" src="scripts/jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$(".delete").click(function () {
+				var content = $(this).parent().parent().find("td:eq(1)").text();
+				var flag = confirm("确定要删除"+content+"的信息吗?");
+				return flag;
+			});	
+		});
+	</script>
 </head>
+
 <body>
 	<form action="query.do" method="post">
 		<table>
@@ -53,7 +64,7 @@
 					<td><%=customer.getAddress() %></td>
 					<td><%=customer.getPhone() %></td>
 					<td>
-						<a href="#">DELETE</a>
+						<a href="delete.do?id=<%=customer.getId() %>" class="delete">DELETE</a>
 						<a href="#">UPDATE</a>
 					</td>
 				</tr>

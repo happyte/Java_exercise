@@ -48,8 +48,16 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("delete");
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String idString = request.getParameter("id");
+		int id = 0;
+		try {
+			id = Integer.parseInt(idString);
+			customerDao.delete(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		response.sendRedirect("query.do");   //重定向到查询页面
 	}
 
 
@@ -69,7 +77,6 @@ public class CustomerServlet extends HttpServlet {
 		CriteriaCustomer cc = new CriteriaCustomer(name, address, phone);
 		//2.获取所有满足模糊查询条件的对象
 		List<Customer> customers = customerDao.getForListWithCriteriaCustomer(cc);
-		System.out.println("customers:"+customers);
 		//3.request设置属性值
 		request.setAttribute("customers", customers);
 		//4.重定向到index.jsp
