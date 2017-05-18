@@ -42,6 +42,8 @@
 					<th>phone</th>
 					<th>DELETE/UPDATE</th>
 				</tr>
+				<hr>
+				<br><br>
 	<%		
 		for(Customer customer:customers){
 	%>
@@ -55,7 +57,6 @@
 						<a href="#">UPDATE</a>
 					</td>
 				</tr>
-				<hr>
 	<% 
 			} 
 	%>

@@ -9,6 +9,8 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.sun.corba.se.pept.transport.EventHandler;
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.zs.mvcapp.domain.CriteriaCustomer;
+import com.zs.mvcapp.domain.Customer;
 import com.zs.mvcapp.utils.JdbcUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -32,7 +34,7 @@ public class DAO<T> {
 			Type [] typeArgs = parameterizedType.getActualTypeArguments();
 			if (typeArgs != null && typeArgs.length > 0) {
 				if (typeArgs[0] instanceof Class) {
-					clazz = (Class<T>) typeArgs[0];
+					clazz = (Class<T>) typeArgs[0]; //clazz是Customer类对象
 				}
 			}
 		}
@@ -62,14 +64,14 @@ public class DAO<T> {
 	 * 返回对应T所对应的List
 	 * @return
 	 */
-	public List<T> getForList(String sql,Object ... args) {
+	public List<T> getForList(String sql,Object ... args) {		
 		Connection connection = null;
 		try {
 			connection = JdbcUtils.getConnection();
-			return queryRunner.query(connection, sql, new BeanListHandler<>(clazz), args);
+			return queryRunner.query(connection, sql, new BeanListHandler<>(clazz), args); 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
+		} finally{
 			JdbcUtils.releaseConnection(connection);
 		}
 		return null;

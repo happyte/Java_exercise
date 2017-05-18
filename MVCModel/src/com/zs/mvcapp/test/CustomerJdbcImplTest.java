@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.zs.mvcapp.dao.CustomerDAO;
 import com.zs.mvcapp.dao.impl.CustomerDaoJdbcImpl;
+import com.zs.mvcapp.domain.CriteriaCustomer;
 import com.zs.mvcapp.domain.Customer;
 
 public class CustomerJdbcImplTest {
@@ -39,7 +40,15 @@ public class CustomerJdbcImplTest {
 
 	@Test
 	public void testGetCountWithName() {
-		fail("Not yet implemented");
+		long count = customerDAO.getCountWithName("lemon");
+		System.out.println("count:"+count);
+	}
+	
+	@Test
+	public void testGetForListWithCriteriaCustomer(){
+		CriteriaCustomer cc = new CriteriaCustomer("haha", null, null);
+		List<Customer> customers = customerDAO.getForListWithCriteriaCustomer(cc);
+		System.out.println("customers:"+customers);
 	}
 
 }

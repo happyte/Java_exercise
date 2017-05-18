@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.zs.mvcapp.dao.CustomerDAO;
 import com.zs.mvcapp.dao.impl.CustomerDaoJdbcImpl;
+import com.zs.mvcapp.domain.CriteriaCustomer;
 import com.zs.mvcapp.domain.Customer;
 
 
@@ -54,16 +55,28 @@ public class CustomerServlet extends HttpServlet {
 
 	private void query(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		System.out.println("query");
-		//1.发送请求来到query方法，获取所有Customer对象
-		List<Customer> customers = customerDao.getAll();
-		//2.request设置属性值
+//		//1.发送请求来到query方法，获取所有Customer对象
+//		List<Customer> customers = customerDao.getAll();
+//		//2.request设置属性值
+//		request.setAttribute("customers", customers);
+//		//3.重定向到index.jsp
+//		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		
+		//1.获取模糊查询的name,phone,address,创建CriteriaCustomer对象
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		CriteriaCustomer cc = new CriteriaCustomer(name, address, phone);
+		//2.获取所有满足模糊查询条件的对象
+		List<Customer> customers = customerDao.getForListWithCriteriaCustomer(cc);
+		System.out.println("customers:"+customers);
+		//3.request设置属性值
 		request.setAttribute("customers", customers);
-		//3.重定向到index.jsp
+		//4.重定向到index.jsp
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
-		System.out.println(request);
+		
+		
 	}
-
 
 	private void addCustomer(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("add");

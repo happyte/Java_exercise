@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zs.mvcapp.dao.CustomerDAO;
 import com.zs.mvcapp.dao.DAO;
+import com.zs.mvcapp.domain.CriteriaCustomer;
 import com.zs.mvcapp.domain.Customer;
 
 public class CustomerDaoJdbcImpl extends DAO<Customer> implements CustomerDAO{
@@ -39,4 +40,13 @@ public class CustomerDaoJdbcImpl extends DAO<Customer> implements CustomerDAO{
 		return getForValue(sql, name);
 	}
 
+	@Override
+	public List<Customer> getForListWithCriteriaCustomer(CriteriaCustomer cc) {
+//		String sql = "SELECT id, name, address, phone FROM customers  WHERE " +
+//					 "name LIKE ? AND address LIKE ? AND phone LIKE ?";
+		String sql = "SELECT id, name, address, phone FROM customers  WHERE " +
+				 "name LIKE" + cc.getName() + "AND address LIKE " + cc.getAddress() + "AND phone LIKE" + cc.getPhone();
+//		return getForList(sql, cc.getName(), cc.getAddress(), cc.getPhone());
+		return getForList(sql);
+	}
 }
