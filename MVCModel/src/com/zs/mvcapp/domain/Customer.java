@@ -39,6 +39,13 @@ public class Customer {
 		this.phone = phone;
 	}
 	
+	public Customer(String name, String address, String phone) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+	}
+	
 	public Customer(){
 		
 	}

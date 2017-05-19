@@ -79,13 +79,30 @@ public class CustomerServlet extends HttpServlet {
 		List<Customer> customers = customerDao.getForListWithCriteriaCustomer(cc);
 		//3.request设置属性值
 		request.setAttribute("customers", customers);
-		//4.重定向到index.jsp
+		//4.转发到index.jsp
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
-		
-		
 	}
 
-	private void addCustomer(HttpServletRequest request, HttpServletResponse response) {
+	private void addCustomer(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		//1.获取请求的参数
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		//2.将请求参数封装成一个customer对象
+		Customer customer = new Customer(name, address, phone);
+		//2.1判断该对象是否在数据库中存在，若存在，则转发到newcustomer.jsp中，显示该名字已经被占用，请重新选择，return
+		long count = customerDao.getCountWithName(name);
+		if(count > 0){
+			String msg = "填写的用户" + name + "已经被占用，请重新填写";
+			request.setAttribute("message", msg);
+			//这里是转发到newcustomer.jsp,把msg显示出来
+			request.getRequestDispatcher("/newcustomer.jsp").forward(request, response);
+			return;
+		}
+		//3.在数据库中不存在，调用customerDao的save方法，来到success.jsp
+		customerDao.save(customer);
+		response.sendRedirect("success.jsp");
 		System.out.println("add");
 	}
 
