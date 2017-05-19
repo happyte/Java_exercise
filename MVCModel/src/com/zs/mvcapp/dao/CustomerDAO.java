@@ -17,5 +17,6 @@ public interface CustomerDAO {
 	public void delete(Integer id);      //根据id删除用户
 	public long getCountWithName(String name); //查找相同名字的记录条数
 	public List<Customer> getForListWithCriteriaCustomer(CriteriaCustomer cc); //重置domain对象，便于模糊查询
+	public void update(Customer customer);    //更新用户
 
 }

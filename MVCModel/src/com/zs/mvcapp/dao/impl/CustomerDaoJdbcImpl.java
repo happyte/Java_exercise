@@ -49,4 +49,10 @@ public class CustomerDaoJdbcImpl extends DAO<Customer> implements CustomerDAO{
 //		return getForList(sql, cc.getName(), cc.getAddress(), cc.getPhone());
 		return getForList(sql);
 	}
+
+	@Override
+	public void update(Customer customer) {
+		String sql = "UPDATE customers SET name = ?, address = ?, phone = ? WHERE id = ?";
+		update(sql, customer.getName(), customer.getAddress(), customer.getPhone(), customer.getId());
+	}
 }

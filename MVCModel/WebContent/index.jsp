@@ -65,7 +65,7 @@
 					<td><%=customer.getPhone() %></td>
 					<td>
 						<a href="delete.do?id=<%=customer.getId() %>" class="delete">DELETE</a>
-						<a href="#">UPDATE</a>
+						<a href="edit.do?id=<%=customer.getId() %>">UPDATE</a>
 					</td>
 				</tr>
 	<% 
