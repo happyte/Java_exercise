@@ -4,14 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Cookie模拟登陆</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<form action="index.jsp" method="post">
-		<input type="text" name="name">
-		<input type="submit" value="提交">
-	</form>
-	
+	<h4>添加成功</h4>
+	<h4><a href="query.do">Return...</a></h4>
 
 </body>
 </html>
